@@ -1,0 +1,137 @@
+{% extends 'base.html'%} {% block 'content' %} {% load static%}{%load crispy_forms_tags%}
+<!-- Page Header Start -->
+<div class="container-fluid page-header mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5" style="min-height: 400px">
+        <h4 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase font-weight-bold">Contact Us</h4>
+        <div class="d-inline-flex">
+            <p class="m-0 text-white"><a class="text-white" href="">Home</a></p>
+            <p class="m-0 text-white px-2">/</p>
+            <p class="m-0 text-white">Contact Us</p>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+
+
+<!-- Contact Start -->
+<div class="container pt-5">
+    <div class="d-flex flex-column text-center mb-5">
+        <h4 class="text-primary font-weight-bold">Get In Touch</h4>
+        <h4 class="display-4 font-weight-bold">Enrollment For Any Query</h4>
+
+    </div>
+    <div class="row px-3 pb-2">
+        <div class="col-sm-4 text-center mb-3">
+            <i class="fa fa-2x fa-map-marker-alt mb-3 text-primary"></i>
+            <h4 class="font-weight-bold">Address</h4>
+            <p>123 Street, New York, USA</p>
+        </div>
+        <div class="col-sm-4 text-center mb-3">
+            <i class="fa fa-2x fa-phone-alt mb-3 text-primary"></i>
+            <h4 class="font-weight-bold">Phone</h4>
+            <p>+012 345 6789</p>
+        </div>
+        <div class="col-sm-4 text-center mb-3">
+            <i class="far fa-2x fa-envelope mb-3 text-primary"></i>
+            <h4 class="font-weight-bold">Email</h4>
+            <p>info@example.com</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 pb-5">
+            <div class="contact-form">
+                <div id="success"></div>
+                <form enctype="multipart/form-data" method="post" class="my-0 p-3 border border-muted"
+                    style="background-color:#fff">
+                    {%csrf_token%}
+                   
+                    <div class="row">
+                        <div id="div_id_email" class="mb-3 col-xl-4 col-sm-8"> <label for="id_email" class="form-label">
+                                Email address
+                            </label> <input type="email" name="email" maxlength="254" class="emailinput form-control"
+                                id="id_email"> </div>
+                        <div id="div_id_gender" class="mb-3 col-xl-2 col-sm-8"> <label for="id_gender"
+                                class="form-label d-flex">
+                                Gender
+                            </label> <select name="gender"
+                                class="select form-select border border-2 border-dark py-2 px-4" id="id_gender">
+                                <option value="" selected="">---------</option>
+                                <option value="Mail">Mail</option>
+                                <option value="Femail">Femail</option>
+                                <option value="Other">Other</option>
+
+                            </select> </div>
+                        <div id="div_id_phoneNumber" class="mb-3 col-xl-3 col-sm-8"> <label for="id_phoneNumber"
+                                class="form-label">
+                                PhoneNumber
+                            </label> <input type="number" name="phoneNumber" class="numberinput form-control"
+                                id="id_phoneNumber"> </div>
+                        <div id="div_id_DOB" class="mb-3 col-xl-3 col-sm-8"> <label for="id_DOB" class="form-label">
+                                DOB
+                            </label> <input type="date" name="DOB" class="dateinput form-control" id="id_DOB"> </div>
+                    </div>
+                    <div class="row">
+                        <div id="div_id_address" class="mb-3 col-xl-7 col-sm-8"> <label for="id_address"
+                                class="form-label requiredField">
+                                Address<span class="asteriskField">*</span> </label> <textarea name="address" cols="50"
+                                rows="15" class="textarea form-control" required="" id="id_address"></textarea>
+                            <div id="hint_id_address" class="form-text">line1,city,state,pincode</div>
+                        </div>
+                        <div class="mb-3 col-xl-5 col-sm-8">
+                            <div class="row">
+                                <div id="div_id_profile_Picture" class="mb-3 col-xl-12 col-sm-8">
+                                    <label for="id_profile_Picture" class="form-label">Profile Picture</label>
+                                    <div> <input type="file" name="profile_Picture" class="form-control"
+                                            accept="image/*" id="id_profile_Picture"> </div>
+                                </div>
+                                <div id="div_id_description" class="mb-3 col-xl-12 col-sm-8">
+                                    <label for="id_address"
+                                        class="form-label requiredField">
+                                        Description<span class="asteriskField">*</span> </label>
+                                     <textarea name="description" cols="40" rows="3" class="textarea form-control" required="" id="id_description" placeholder="description"></textarea> </div>
+                            <div id="div_id_selectMemberShipPlan" class="mb-3 col-xl-12 col-sm-8"> <label for="id_selectMemberShipPlan" class="form-label requiredField">
+                                    Select Member Ship Plan<span class="asteriskField">*</span> </label> <select name="plan" class="select form-select border border-2 border-dark py-2 px-4" required="" id="id_selectMemberShipPlan">
+                                    <option value="" selected="">---------</option>
+                                    {% for pla in plan  %}
+                                    <option value="{{pla.id}}">{{pla.plan}}</option>
+                                    {% endfor %}
+        
+                                </select> </div>
+                            <div id="div_id_selectMemberShipPlan" class="mb-3 col-xl-12 col-sm-8"> <label for="id_selectMemberShipPlan" class="form-label requiredField">
+                                Select Trainer<span class="asteriskField">*</span> </label> <select name="selectTrainer" class="select form-select border border-2 border-dark py-2 px-4" required="" id="id_selectMemberShipPlan">
+                                    <option value="" selected="">---------</option>
+                                    
+                                    {% for trainer in selectTrainer  %}
+                                    <option value="{{trainer.id}}">{{trainer.user.username}}</option>
+                                    {% endfor %}
+                                        
+                                    
+                                </select> </div>
+                            <div id="div_id_reference" class="mb-3 col-xl-12 col-sm-8">
+                                <label for="id_address"
+                                        class="form-label requiredField">
+                                        Refrence<span class="asteriskField">*</span> </label>
+                                 <input placeholder="refrence" type="text" name="reference" maxlength="150" class="textinput form-control" required="" id="id_reference"> </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+                        
+                    <input type="submit" value="Submit" class="btn btn-outline-primary w-100 fw-bold mx-auto text-center" id="sendMessageButton">
+            </div>
+
+            </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-8 pb-5 mx-auto">
+        <iframe style="width: 100%; height: 392px;"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3001156.4288297426!2d-78.01371936852176!3d42.72876761954724!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4ccc4bf0f123a5a9%3A0xddcfc6c1de189567!2sNew%20York%2C%20USA!5e0!3m2!1sen!2sbd!4v1603794290143!5m2!1sen!2sbd"
+            frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+    </div>
+</div>
+</div>
+<!-- Contact End -->
+
+{% endblock %}

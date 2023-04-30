@@ -1,0 +1,4 @@
+/static*
+/media*
+/server*
+/db.sqlite3*
