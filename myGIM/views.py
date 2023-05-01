@@ -10,9 +10,16 @@ from django.utils import timezone
 from datetime import datetime
 
 def home(req):
-    return render(req,"index.html")
+    data={
+        'traner':Trainer.objects.filter(isApproved=True),
+        'fedback':FeedBack.objects.all(),
+    }
+    return render(req,"index.html",data)
 def classes(req):
-    return render(req,"class.html")
+    data={
+        'timetable':TimeTable.objects.all(),
+    }
+    return render(req,"class.html",data)
 def aboutUs(req):
     data={
         'traner':Trainer.objects.filter(isApproved=True),
@@ -130,3 +137,25 @@ def feedBack(req):
         form.save()
         return redirect(home)
     return render(req,"feedback.html",{'form':form})
+
+@login_required
+def singleView(req):
+    user= User.objects.get(pk=req.user.id)
+    currentMonth=datetime.now()
+    feed=FeedBack.objects.all()
+
+    if req.method=="POST":
+        form=FeedBack()
+        form.client=user
+        form.message=req.POST.get('message')
+        form.timeStamp=currentMonth
+        form.save()
+        return redirect(singleView)
+    if user.is_trainers == True:
+        trainer=Trainer.objects.get(user=req.user)
+        data={'trainer':trainer,'fedback':feed,}
+    elif user.is_public == True:
+        public=Contact.objects.get(user=req.user)
+        data={'public':public,'fedback':feed,}
+    return render(req,"single.html",data)
+

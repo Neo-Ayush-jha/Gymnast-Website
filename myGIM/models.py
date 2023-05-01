@@ -6,11 +6,29 @@ GENDER=(
     ("Other","Other"),
 )
 PLAN=(
-    ("3-month","3-month"),
-    ("6-month","6-month"),
-    ("12-month","12-month"),
+    ("1-month > 3-month","1-month > 3-month"),
+    ("4-month > 6-month","4-month > 6-month"),
+    ("7-month > 12-month","7-month > 12-month"),
 )
-class User(AbstractUser):
+DAY=(
+    ("Monday","Monday"),
+    ("Tuesday","Tuesday"),
+    ("Wednesday","Wednesday"),
+    ("Thursday","Thursday"),
+    ("Friday","Friday"),
+    ("Saturday","Saturday"),
+    ("Sunday","Sunday"),
+)
+TIME=(
+    ("6:00am - 8:00am","6:00am - 8:00am"),
+    ("8:00am - 10:00am","8:00am - 10:00am"),
+    ("10:00am - 1:00pm","10:00am - 1:00pm"),
+    ("1:00pm - 3:00pm","1:00pm - 3:00pm"),
+    ("3:00pm - 5:00pm","3:00pm - 5:00pm"),
+    ("5:00pm - 8:00pm","5:00pm - 8:00pm"),
+    ("8:00pm - 10:00pm","8:00pm - 10:00pm"),
+)
+class User (AbstractUser):
     is_trainers=models.BooleanField(default=False)
     is_public=models.BooleanField(default=False)
 
@@ -46,7 +64,11 @@ class Contact(models.Model):
     def __str__(self):
         return self.user.username
 class TimeTable(models.Model):
-    pass
+    day=models.CharField(max_length=100,choices=DAY)
+    time=models.CharField(max_length=100,choices=TIME)
+    trainer=models.ForeignKey(Trainer,on_delete=models.CASCADE)
+    def __str__(self):
+        return self.day + " - " + self.time +" - " + self.trainer.user.username
 class FeedBack(models.Model):
     client=models.ForeignKey(User,on_delete=models.CASCADE)
     message=models.TextField()

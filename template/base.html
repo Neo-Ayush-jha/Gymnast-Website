@@ -12,7 +12,9 @@
 
     <!-- Favicon -->
     <link href="{%static 'img/favicon.ico'%}" rel="icon">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
@@ -38,29 +40,28 @@
                     <a href="{% url 'about'%}" class="nav-item nav-link">About Us</a>
                     <a href="{% url 'feature'%}" class="nav-item nav-link">Our Features</a>
                     <a href="{% url 'classes'%}" class="nav-item nav-link">Classes</a>
-                    <div class="nav-item dropdown">
+                    <!-- <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu text-capitalize">
                             <a href="blog.html" class="dropdown-item">Blog Grid</a>
                             <a href="blog.html" class="dropdown-item">Blog Detail</a>
                             <a href="blog.html" class="dropdown-item">Blog Detail</a>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">For you</a>
                         <div class="dropdown-menu text-capitalize">
                             {% if request.user.is_authenticated %}
                                 <a href="blog.html" class="dropdown-item">Attendence</a>
-                                <a href="single.html" class="dropdown-item">View Profile</a>
+                                <a href="{%url 'singleView'%}" class="dropdown-item">View Profile</a>
                                 
-                                {% comment %} {% if if user.is_trainers = True %}
-                                <a href="{%url 'join'%}" class="dropdown-item">Join as trainer</a>
-                                {% else %}
-                                {% endif %} {% endcomment %}
-
-                                <a href="{%url 'join'%}" class="dropdown-item">Enrollment</a>    
+                            {% if user.is_trainers == True %}
                                 <a href="{%url 'joinASTrainer'%}" class="dropdown-item">Join as trainer</a>    
+                            {% else %}
+                                <a href="{%url 'join'%}" class="dropdown-item">Enrollment</a>    
                                 <a href="{%url 'feedBack'%}" class="dropdown-item">Feedback Us</a>
+                            {% endif %}
+
                                 <a href="{%url 'logout'%}" class="dropdown-item">Logout</a>
                             {% else %}
                                 <a href="{%url 'login' %}" class="dropdown-item">Login</a>
@@ -81,10 +82,12 @@
     </div>
     <!-- Navbar end -->
     
-    <div >{% block 'content' %}
-        {% endblock %}</div>
+    <div >
+        {% block 'content' %}
+        {% endblock %}
+    </div>
     <!-- Footer Start -->
-    <div class="footer container-fluid mt-5 py-5 px-sm-3 px-md-5 text-white">
+    <div class="footer container-fluid mt-3 py-5 px-sm-3 px-md-5 text-white">
         <div class="row pt-5">
             <div class="col-lg-3 col-md-6 mb-5">
                 <h4 class="text-primary mb-4">Get In Touch</h4>
@@ -101,21 +104,21 @@
             <div class="col-lg-3 col-md-6 mb-5">
                 <h4 class="text-primary mb-4">Quick Links</h4>
                 <div class="d-flex flex-column justify-content-start">
-                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Home</a>
-                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>About Us</a>
-                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Our Features</a>
-                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Classes</a>
-                    <a class="text-white" href="#"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
+                    <a class="text-white mb-2" href="{%url 'home'%}"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                    <a class="text-white mb-2" href="{%url 'about'%}"><i class="fa fa-angle-right mr-2"></i>About Us</a>
+                    <a class="text-white mb-2" href="{%url 'feature'%}"><i class="fa fa-angle-right mr-2"></i>Our Features</a>
+                    <a class="text-white mb-2" href="{%url 'classes'%}"><i class="fa fa-angle-right mr-2"></i>Classes</a>
+                    <a class="text-white" href="{%url 'singup_public' %}"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 mb-5">
                 <h4 class="text-primary mb-4">Popular Links</h4>
                 <div class="d-flex flex-column justify-content-start">
-                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Home</a>
-                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>About Us</a>
-                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Our Features</a>
-                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Classes</a>
-                    <a class="text-white" href="#"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
+                    <a class="text-white mb-2" href="{%url 'home'%}"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                    <a class="text-white mb-2" href="{%url 'about'%}"><i class="fa fa-angle-right mr-2"></i>About Us</a>
+                    <a class="text-white mb-2" href="{%url 'feature'%}"><i class="fa fa-angle-right mr-2"></i>Our Features</a>
+                    <a class="text-white mb-2" href="{%url 'classes'%}"><i class="fa fa-angle-right mr-2"></i>Classes</a>
+                    <a class="text-white" href="{%url 'singup_public' %}"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 mb-5">
@@ -129,7 +132,7 @@
         <div class="container border-top border-dark pt-5">
             <p class="m-0 text-center text-white">
                 © <a class="text-white font-weight-bold" href="#">Your Site Name</a>. All Rights Reserved. Designed by
-                <a class="text-white font-weight-bold" href="https://htmlcodex.com">HTML Codex</a>
+                <a class="text-white font-weight-bold" href="">neo Codex</a>
             </p>
         </div>
     </div>

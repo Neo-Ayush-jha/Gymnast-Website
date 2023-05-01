@@ -1,0 +1,194 @@
+{% extends 'base.html'%} {% block 'content' %} {% load static%}{%load crispy_forms_tags%}
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5" style="min-height: 400px">
+            <h4 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase font-weight-bold">Detail Page of <span class="text-decoration-underline">{{public.user.username}}</span></h4>
+            <div class="d-inline-flex">
+                <p class="m-0 text-white"><a class="text-white" href="{%url 'home'%}">Home</a></p>
+                <p class="m-0 text-white px-2">/</p>
+                <p class="m-0 text-white">Detail</p>
+                
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
+    
+    
+    <h4 class="display-4 mb-3 mt-0 text-dark text-center text-uppercase font-weight-bold">
+        {% if user.is_trainers == True %}
+          Trainer
+        {% else %}
+            Public
+        {% endif %}
+    </h4>
+    
+    {% if user.is_trainers == True %}   
+        <!-- Blog Detail Start -->
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <img class="img-fluid mb-4" style="height: 600px !important;" src="{{trainer.profile_Picture.url}}" alt="Image">
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="d-flex flex-column align-items-center justify-content-center rounded-circle bg-primary text-white" style="width: 100px; height: 100px;">
+                            <span>{{trainer.timeStamp.day}}</span>
+                            <strong class="text-uppercase m-0 text-white">{{trainer.timeStamp.month}}</strong>
+                            <span>{{trainer.timeStamp.year}}</span>
+                        </div>
+                        <div class="pl-3">
+                            <h1 class="font-weight-bold mb-3">{{trainer.user.first_name}} {{trainer.user.last_name}}</h1>
+                            <div class="d-flex">
+                                <span class="mr-2 text-muted"><i class="fa fa-user"></i> {{trainer.user.username}}</span>
+                                <span class="mr-2 text-muted"><i class="fa fa-comments"></i> 15 Comments</span>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pl-3">
+                        <div class="d-flex">
+                            <p><span class="mx-3 text-muted" ><i class="fa fa-calendar" ></i> {{trainer.DOB}}</span> </p>
+                            <p><span class="mx-3 text-muted"><i class="bi bi-currency-rupee"></i> {{trainer.salary}}</span>   </p>
+                            <p><span class="mx-3 text-muted"><i class="fa fa-phone"></i> {{trainer.phoneNumber}}</span>   </p>
+                            
+                        </div>
+                        <p><span class=" text-muted " ><i class="fa fa-home" ></i> Address : </span>{{trainer.address}}</p>
+                    </div>
+                    <p>Voluptua est takimata stet invidunt sed rebum nonumy stet, clita aliquyam dolores vero stet consetetur elitr takimata rebum sanctus. Sit sed accusam stet sit nonumy kasd diam dolores, sanctus lorem kasd duo dolor dolor vero sit et. Labore ipsum duo sanctus amet eos et. Consetetur no sed et aliquyam ipsum justo et, clita lorem sit vero amet amet est dolor elitr, stet et no diam sit. Dolor erat justo dolore sit invidunt, sed duo dolor et amet no et. Ut takimata tempor kasd amet kasd ut. No et ipsum amet tempor et. Sed nonumy sed vero ut, sed aliquyam accusam clita dolores tempor est. Ea et takimata consetetur et amet sanctus. Duo no diam ipsum diam dolores, eirmod diam dolores clita sed erat magna. Dolore ut amet ea magna. Sea et dolore sit labore at amet eos. Dolor voluptua sit rebum sit ut nonumy. Dolor amet amet sit sadipscing, lorem.</p>
+                </div>
+                <div class="col-12 pt-4">
+                    <div class="media bg-secondary text-white mb-4 p-5">
+                        <img src="{% static 'img/user.jpg'%}" alt="Image" class="mr-3 mt-1 rounded-circle p-3 bg-dark" style="width:150px;">
+                        <div class="media-body">
+                            <h4 class="text-primary mb-3">John Doe</h4>
+                            <p class="m-0">Consetetur elitr erat vero sanctus labore dolor ipsum et diam, tempor dolores eos dolor consetetur lorem ipsum, ipsum accusam ipsum sit no ut est. Gubergren ea ipsum erat consetetur magna kasd amet est, voluptua magna elitr ea sit justo sed sanctus. Accusam duo duo sit sit. Ut eos ipsum sed takimata sed dolor justo, elitr no labore amet et et sanctus. Duo invidunt magna diam no clita, ea eos vero sanctus est aliquyam et, dolores gubergren eirmod sea invidunt no kasd. Amet ut sadipscing eirmod et dolore. Sed lorem stet aliquyam ipsum eos.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 py-4">
+                    <h3 class="mb-4 font-weight-bold">3 Comments</h3>
+                    <div class="media mb-4">
+                        <img src="{% static 'img/user.jpg'%}" alt="Image" class="mr-3 mt-1 rounded-circle" style="width:60px;">
+                        <div class="media-body">
+                            <h4>John Doe <small><i>01 Jan 2045 at 12:00pm</i></small></h4>
+                            <p>Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua, tempor labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum. Gubergren clita aliquyam consetetur sadipscing, at tempor amet ipsum diam tempor consetetur at sit.</p>
+                            <button class="btn btn-sm btn-dark">Reply</button>
+                        </div>
+                    </div>
+                    {% for fedbacks in fedback  %}
+                    <div class="media mb-4">
+                        <img src="{% static 'img/user.jpg'%}" alt="Image" class="mr-3 mt-1 rounded-circle" style="width:60px;">
+                        <div class="media-body">
+                            <h4>{{fedbacks.client.first_name}} {{fedbacks.client.last_name}} <small><i>{{fedbacks.timeStamp}}</i></small></h4>
+                            <p>{{fedbacks.message}}</p>
+                            <button class="btn btn-sm btn-dark">Reply</button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+                </div>
+                <div class="col-12">
+                    <h3 class="mb-4 font-weight-bold">Leave a comment</h3>
+                    <form method="post">
+                        {%csrf_token%}
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" cols="30" rows="5" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Leave Comment" class="btn btn-outline-primary px-3">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Blog Detail End -->
+    {% else %}
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-12 text-center">
+                <img class="img-fluid mb-4 " style="height: 600px !important;" src="{{public.profile_Picture.url}}" alt="Image">
+                <div class="d-flex align-items-center mb-4">
+                    <div class="d-flex flex-column align-items-center justify-content-center rounded-circle bg-primary text-white" style="width: 100px; height: 100px;">
+                        <span>{{public.timeStamp.day}}</span>
+                        <strong class="text-uppercase m-0 text-white">{{public.timeStamp.month}}</strong>
+                        <span>{{public.timeStamp.year}}</span>
+                    </div>
+                    <div class="pl-3">
+                        <h1 class="font-weight-bold mb-3">{{public.user.first_name}} {{public.user.last_name}}</h1>
+                        <div class="d-flex">
+                            <span class="mr-2 text-muted"><i class="fa fa-user"></i> {{public.user.username}}</span>
+                            <span class="mr-2 text-muted"><i class="fa fa-comments"></i> 15 Comments</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="pl-3">
+                    <div class="d-flex">
+                        <p><span class="mx-3 text-muted" ><i class="fa fa-calendar" ></i> {{public.DOB}}</span> </p>
+                        <p><span class="mx-3 text-muted"><i class="fa fa-phone"></i> {{public.phoneNumber}}</span>   </p>
+                        <p><span class="mx-3 text-muted"><i class="bi fw-bold bi-gender-ambiguous"></i> {{public.gender}}</span>   </p>
+                        
+                    </div>
+                    <p><span class="mx-3 text-muted" ><i class="fa fa-home" ></i> Address : </span>{{public.address}}</p>
+                </div>
+                <p><span class="fw-bold">Description : </span>{{public.description}}</p>
+            </div>
+            <div class="col-12">
+                <div class="d-flex align-items-center mb-4">
+                    <div class="row bg-danger">
+                        <div class="col-lg-4 col-sm-6 p-0">
+                            <div class="d-flex align-items-center bg-secondary text-white px-4" style="min-height: 300px;">
+                                <i class="flaticon-training display-3 text-primary mr-2"></i>
+                                <div class="">
+                                    <h2 class="text-white mb-3">My Progression</h2>
+                                    <p><span class="fw-bold">Plan name : </span>{{public.plan.plan}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p>{{public.description}}</p>
+            </div>
+            <div class="col-12 pt-4">
+                <div class="media bg-secondary text-white mb-4 p-5">
+                    <img src="{% static 'img/user.jpg'%}" alt="Image" class="mr-3 mt-1 rounded-circle p-3 bg-dark" style="width:150px;">
+                    <div class="media-body">
+                        <h4 class="text-primary mb-3">John Doe</h4>
+                        <p class="m-0">Consetetur elitr erat vero sanctus labore dolor ipsum et diam, tempor dolores eos dolor consetetur lorem ipsum, ipsum accusam ipsum sit no ut est. Gubergren ea ipsum erat consetetur magna kasd amet est, voluptua magna elitr ea sit justo sed sanctus. Accusam duo duo sit sit. Ut eos ipsum sed takimata sed dolor justo, elitr no labore amet et et sanctus. Duo invidunt magna diam no clita, ea eos vero sanctus est aliquyam et, dolores gubergren eirmod sea invidunt no kasd. Amet ut sadipscing eirmod et dolore. Sed lorem stet aliquyam ipsum eos.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 py-4">
+                <h3 class="mb-4 font-weight-bold">3 Comments</h3>
+                
+                {% for fedbacks in fedback  %}
+                {% if public.user == fedbacks.client %}
+                <div class="media mb-4">
+                    <img src="{{public.profile_Picture.url}}" alt="Image" class="mr-3 mt-1 rounded-circle" style="width:60px;">
+                    <div class="media-body">
+                        <h4>{{fedbacks.client.first_name}} {{fedbacks.client.last_name}} <small><i>{{fedbacks.timeStamp}}</i></small></h4>
+                        <p>{{fedbacks.message}}</p>
+                        <button class="btn btn-sm btn-dark">Reply</button>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+                
+            </div>
+            <div class="col-12">
+                <h3 class="mb-4 font-weight-bold">Leave a comment</h3>
+                <form method="post">
+                    {%csrf_token%}
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" cols="30" rows="5" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Leave Comment" class="btn btn-outline-primary px-3">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+        
+    {% endblock %}
