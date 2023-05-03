@@ -1,4 +1,5 @@
 from pathlib import Path
+from django.contrib.messages import constants as msg
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -122,3 +123,13 @@ MEDIA_ROOT = BASE_DIR / "media"
 # MEDIA_ROOT = BASE_DIR / "staticHome"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 LOGIN_URL="/login"
+
+# -----------------------------------message------------------------------------------>
+MESSAGE_TAGS  = {
+    msg.DEBUG : "alert alert-info",
+    msg.ERROR : "alert alert-danger",
+    msg.SUCCESS : "alert alert-success",
+    msg.WARNING : "alert alert-warning",
+    
+    # msg.DEBUG : "bg-red-400 text-white px-3 rounded py-1",
+}

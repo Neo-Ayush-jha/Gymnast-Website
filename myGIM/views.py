@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login , logout ,authenticate
 from django.utils import timezone
 from datetime import datetime
+from django.contrib import messages
 
 def home(req):
     data={
@@ -80,6 +81,7 @@ def join(req):
     form=ContactFrom
     plan=MembershipPlan.objects.all()
     currentMonth=datetime.now()
+    contact=Contact.objects.filter(user = user)
 
     if req.method=="POST":
         selectTrainer=req.POST.get('selectTrainer')
@@ -98,8 +100,11 @@ def join(req):
         form.plan=MembershipPlan.objects.get(pk=plan)
         form.selectTrainer=Trainer.objects.get(pk=selectTrainer)
         print(form.selectTrainer)
-        form.save()
-        return redirect(home)
+        if contact.exists():
+            messages.success(req,"You are already")
+        else:
+            form.save()
+            return redirect(home)
     data={'form':form,'selectTrainer':selectTrainer,'plan':plan}
     return render(req,"join.html",data)
 
