@@ -113,7 +113,7 @@ def joinASTrainer(req):
     user=User.objects.get(pk=req.user.id)
     form=ContactTrainerFrom
     currentMonth=datetime.now()
-
+    trainer=Trainer.objects.filter(user = user)
     if req.method=="POST":
         form=Trainer()
         form.user=user
@@ -124,9 +124,11 @@ def joinASTrainer(req):
         form.salary=req.POST.get('salary')
         form.profile_Picture=req.FILES.get('profile_Picture')
         form.timeStamp=currentMonth
-
-        form.save()
-        return redirect(home)
+        if trainer.exists():
+            messages.success(req,"You are already")
+        else:
+            form.save()
+            return redirect(home)
     return render(req,"joinASTrainer.html",{"form":form})
 @login_required
 def feedBack(req):
@@ -164,3 +166,8 @@ def singleView(req):
         data={'public':public,'fedback':feed,}
     return render(req,"single.html",data)
 
+def gallery(req):
+    data={
+        'post':Gallery.objects.all(),
+    }
+    return render(req,"gallery.html",data)

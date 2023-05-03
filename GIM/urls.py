@@ -19,5 +19,6 @@ urlpatterns = [
     path("feedback/",feedBack,name="feedBack"),
     path("join/as/trainer/",joinASTrainer,name="joinASTrainer"),
     path("single/view/",singleView,name="singleView"),
+    path("gallery/",gallery,name="gallery"),
 ]
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

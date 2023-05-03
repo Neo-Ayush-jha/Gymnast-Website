@@ -1,0 +1,42 @@
+{% extends 'base.html'%} {% block 'content' %} {% load static%}{%load crispy_forms_tags%}
+
+
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5" style="min-height: 400px">
+            <h4 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase font-weight-bold">Our Gallery </h4>
+            <div class="d-inline-flex">
+                <p class="m-0 text-white"><a class="text-white" href="{%url 'home'%}">Home</a></p>
+                <p class="m-0 text-white px-2">/</p>
+                <p class="m-0 text-white">Gallery </p>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
+<!-- GYM Feature Start -->
+<div class="container feature pt-5">
+    <div class="d-flex flex-column text-center mb-5">
+        <h4 class="text-primary font-weight-bold">Why Choose Us?</h4>
+        <h4 class="display-4 font-weight-bold">Equipments of Our GYM</h4>
+    </div>
+    <div class="row">
+        {% for photo in post %}
+          
+        <div class="col-md-6 mb-5">
+            <div class="row align-items-center">
+                <div class="col-sm-5">
+                    <img class="img-fluid mb-3 mb-sm-0" src="{{photo.img.url}}" style="height: 155px;width:200px" alt="Image">
+                    <i class="flaticon-barbell"></i>
+                </div>
+                <div class="col-sm-7">
+                    <h4 class="font-weight-bold">{{photo.community}}</h4>
+                    <p>{{photo.topic}}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- GYM Feature End -->
+
+    {% endblock %}

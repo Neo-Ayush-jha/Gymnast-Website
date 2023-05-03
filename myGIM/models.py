@@ -77,3 +77,16 @@ class FeedBack(models.Model):
         return self.client.username
 class VideoClass(models.Model):
     pass
+
+class Gallery(models.Model):
+    topic=models.CharField(max_length=200)
+    community=models.CharField(max_length=200)
+    img=models.ImageField(upload_to="photo/" ,null=True,blank=True)
+    def __str__(self) -> str:
+        return self.topic
+class Attendance(models.Model):
+    selectdate=models.DateTimeField(auto_now=True)
+    login=models.CharField(max_length=200)
+    logout=models.CharField(max_length=200)
+    selectWorkout=models.CharField(max_length=200)
+    trainedBy=models.ForeignKey(Trainer,on_delete=models.CASCADE)
